@@ -14,14 +14,11 @@ class Blockchain:
 
     def mine(self, block):
         while True:
-            if block.hash[:self.difficulty] == "0" * self.difficulty:
+            if block.hash()[:self.difficulty] == "0" * self.difficulty:
                 self.add(block)
                 break
             else:
                 block.nonce += 1
-
-
-
 
 
 if __name__ == "__main__":
@@ -32,7 +29,7 @@ if __name__ == "__main__":
     database = ['Mike', 'Angela', 'Jade', 'Michael']
 
     for data in database:
-        block = Block(blockchain.chain[-1].hash, data, datetime.datetime.now())
+        block = Block(blockchain.chain[-1].hash(), data, datetime.datetime.now())
         blockchain.mine(block)
 
     for block in blockchain.chain:

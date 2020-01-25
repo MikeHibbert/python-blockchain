@@ -8,22 +8,21 @@ class Block:
         self.data = data
         self.timestamp = timestamp
         self.nonce = 0
-        self.hash = self.hash()
 
     def hash(self):
         header = "{}{}{}{}".format(self.prevoius_hash, self.data, self.timestamp, self.nonce).encode()
 
         inner_hash = hashlib.sha256(header).hexdigest().encode()
-        self.hash = hashlib.sha256(inner_hash).hexdigest()
+        hash = hashlib.sha256(inner_hash).hexdigest()
 
-        return self.hash
+        return hash
 
     @staticmethod
     def create_genesis():
-        return Block("0", "0", datetime.datetime.now())
+        return Block("0" * 64, "Genesis", datetime.datetime.now())
 
-    def __str__(self):
-        return "hash: {} prev: {} nonce: {}".format(self.hash, self.prevoius_hash, self.nonce)
+    def __repr__(self):
+        return "hash: {} prev: {} nonce: {}".format(self.hash(), self.prevoius_hash, self.nonce)
 
 
 if __name__ == "__main__":
